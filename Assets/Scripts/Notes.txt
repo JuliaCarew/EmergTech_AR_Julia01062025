@@ -1,0 +1,3 @@
+when playing, brush does not stay in front of camera, does not go to the surface of the canvas in space
+
+- maybe add color picker to change color of paint

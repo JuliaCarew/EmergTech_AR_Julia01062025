@@ -55,15 +55,9 @@ public class Brush : MonoBehaviour
     {
         bool isTouching = false;
         Vector2 screenPosition = Vector2.zero;
-        
-        // mobile touch input
-        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
-        {
-            isTouching = true;
-            screenPosition = Touchscreen.current.primaryTouch.position.ReadValue();
-        }
+                
         // mouse input 
-        else if (Mouse.current != null && Mouse.current.leftButton.isPressed)
+        if (Mouse.current != null && Mouse.current.leftButton.isPressed)
         {
             isTouching = true;
             screenPosition = Mouse.current.position.ReadValue();
@@ -111,19 +105,6 @@ public class Brush : MonoBehaviour
         Vector3 brushTip = transform.position + transform.forward * 0.01f;
         
         if (Physics.SphereCast(brushTip, paintDistance * 0.5f, transform.forward, out hit, paintDistance, canvasLayer))
-        {
-            Canvas canvas = hit.collider.GetComponent<Canvas>();
-            if (canvas != null)
-            {
-                targetCanvas = canvas;
-                PaintOnCanvas(hit.point);
-                isPainting = true;
-                return;
-            }
-        }
-        
-        // Also try a regular raycast as fallback
-        if (Physics.Raycast(brushTip, transform.forward, out hit, paintDistance, canvasLayer))
         {
             Canvas canvas = hit.collider.GetComponent<Canvas>();
             if (canvas != null)
