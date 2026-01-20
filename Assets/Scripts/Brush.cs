@@ -74,6 +74,10 @@ public class Brush : MonoBehaviour
             Ray ray = arCamera.ScreenPointToRay(screenPosition);
             RaycastHit hit;
             
+            // check if its a color
+
+
+            // its canvas
             if (Physics.Raycast(ray, out hit, maxRaycastDistance, canvasLayer))
             {
                 Canvas canvas = hit.collider.GetComponent<Canvas>();
@@ -91,6 +95,17 @@ public class Brush : MonoBehaviour
                         return;
                     }
                 }
+
+                // change color !!!! TEST
+                PaletteColor paletteColor = hit.collider.GetComponent<PaletteColor>();
+                if(paletteColor != null && Mouse.current != null && Mouse.current.leftButton.isPressed)
+                {
+
+                    UpdateBrushPosition(hit.point, hit.normal);
+
+                    paletteColor.ChangeBrushColor();
+                }
+
             }
         }
         
